@@ -28,6 +28,16 @@ else
     sudo usermod -aG sudo $USERNAME
 fi
 
+if [ ! -f /home/$USERNAME/.ssh/id_ed25519 ]; then
+    echo "🔐 Genererar ny SSH-nyckel för användaren..."
+    sudo -u $USERNAME ssh-keygen -t ed25519 -N "" -f /home/$USERNAME/.ssh/id_ed25519
+    echo "📎 Lägg till följande publika nyckel till GitHub:"
+    sudo cat /home/$USERNAME/.ssh/id_ed25519.pub
+else
+    echo "✅ SSH-nyckel finns redan"
+fi
+
+
 # ---------------------------------------------
 # 🔐 SSH-konfiguration
 # ---------------------------------------------
@@ -96,3 +106,10 @@ EOF
 
 echo "✅ Allt klart! API ska nu vara tillgängligt på http://<SERVER-IP>:8080"
 echo "🌐 Testa gärna: http://46.62.165.167:8080/swagger-ui/index.html"
+
+
+if curl -s --head http://localhost:8080 | grep "200 OK" > /dev/null; then
+    echo "✅ API svarar korrekt på port 8080"
+else
+    echo "❌ API svarar inte – kontrollera containern med: docker ps"
+fi

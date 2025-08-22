@@ -5,7 +5,7 @@ set -e
 # ✅ Variabler
 # ---------------------------------------------
 USERNAME="deployuser"
-REPO_URL="git@github.com:Rammsterr/json-xml-converter-api.git"
+REPO_URL="https://github.com/Rammsterr/json-xml-converter-api.git"
 PROJECT_DIR="/home/$USERNAME/json-xml-converter-api"
 SSH_CONFIG_FILE="/etc/ssh/sshd_config"
 
